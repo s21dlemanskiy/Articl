@@ -345,8 +345,29 @@ def test1():
         if not point_in_fig(fig, i):
             paint_p([i], 100)
 
-
 def test2():
+    import itertools
+    fig = [Point(0, 0), Point(3, 0), Point(3, 3), Point(2, 1), Point(1, 3)]
+    paint_f(fig, 100)
+    maxx, maxy = minx, miny = (
+        fig[0].x, fig[0].y)
+    for i in fig:
+        if i.x > maxx:
+            maxx = i.x
+        if i.x < minx:
+            minx = i.x
+        if i.y > maxy:
+            maxy = i.y
+        if i.y < miny:
+            miny = i.y
+    x_list = list(x * 0.1 for x in range(int(minx * 10), int(maxx * 10)))
+    y_list = list(y * 0.1 for y in range(int(miny * 10), int(maxy * 10)))
+    for x, y in itertools.product(x_list, y_list):
+        if point_in_fig(fig, Point(y, x)):
+            paint_p([Point(y, x)], 100)
+
+
+def test3():
     main_fig = []
     o = int(input("кол-во граней >>"))
     for i in range(o):
@@ -359,7 +380,7 @@ def test2():
     p = Point3(x, y, z)
     print(point_in_fig_3d(main_fig, p))
 
-def test3():
+def test4():
     plane1 = Plane3([Point3(0, 0, 0), Point3(0, 0, 1), Point3(0, 1, 1), Point3(0, 1, 0)])
     plane2 = Plane3([Point3(0, 0, 0), Point3(1, 0, 0), Point3(1, 1, 0), Point3(0, 1, 0)])
     plane3 = Plane3([Point3(0, 0, 0), Point3(1, 0, 0), Point3(1, 0, 1), Point3(0, 0, 1)])
@@ -372,4 +393,6 @@ def test3():
     print(point_in_fig_3d(main_fig, p))
 
 
-test3()
+
+
+test2()
